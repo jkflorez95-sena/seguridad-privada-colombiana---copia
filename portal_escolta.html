@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Escolta - SPC</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body { 
+      background: linear-gradient(135deg, #000, #d4a017); 
+      font-family: 'Poppins', sans-serif; 
+      color: #333;
+    }
+    header { 
+      background: #000; 
+      color: #fff; 
+      padding: 1rem; 
+      text-align: center; 
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+    .card { 
+      border-radius: 14px; 
+      box-shadow: 0 6px 12px rgba(0,0,0,0.25); 
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+    }
+    .floating-btn {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #ffc107;
+      color: #000;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      cursor: pointer;
+    }
+    footer {
+      background: #000;
+      color: #ccc;
+      text-align: center;
+      padding: 10px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><i class="bi bi-shield-shaded text-warning"></i> Portal Escolta</h1>
+    <p>Asignaciones, clientes y rutas de protección</p>
+  </header>
+
+  <div class="container mt-4">
+    <div class="row g-4">
+
+      <!-- Asignaciones -->
+      <div class="col-md-6">
+        <div class="card p-3">
+          <h5><i class="bi bi-person-check-fill text-success"></i> Asignaciones Actuales</h5>
+          <ul>
+            <li>Cliente: <strong>Ejecutivo A</strong> – Turno: Lunes 8am - 6pm</li>
+            <li>Cliente: <strong>Empresario B</strong> – Turno: Miércoles 10am - 8pm</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Rutas de protección -->
+      <div class="col-md-6">
+        <div class="card p-3">
+          <h5><i class="bi bi-map-fill text-primary"></i> Rutas de Protección</h5>
+          <p>Se recomienda seguir siempre las rutas establecidas y reportar cualquier novedad.</p>
+          <ul>
+            <li>Ruta 1: Oficina Central ➝ Residencia</li>
+            <li>Ruta 2: Aeropuerto ➝ Hotel Principal</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Reportes -->
+      <div class="col-md-12">
+        <div class="card p-3">
+          <h5><i class="bi bi-journal-text text-warning"></i> Reportes de Servicio</h5>
+          <p>Aquí podrás registrar y enviar reportes de novedades durante tu servicio.</p>
+          <button class="btn btn-dark"><i class="bi bi-pencil-square"></i> Nuevo Reporte</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Botón flotante cerrar sesión -->
+  <div class="floating-btn" onclick="logout()" title="Cerrar sesión">
+    <i class="bi bi-box-arrow-right"></i>
+  </div>
+
+  <footer>
+    © 2025 Seguridad Privada Colombiana - Todos los derechos reservados
+  </footer>
+
+  <script src="empleados.js"></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+/* ====== ESTILOS REGISTRO SPC ====== */
+
+/* Fondo institucional */
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  background: linear-gradient(135deg, #000 40%, #ffc107 100%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Encabezado */
+.header {
+  background-color: #000;
+  color: #fff;
+  padding: 15px 40px;
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.header i {
+  margin-right: 10px;
+  color: #ffc107;
+}
+
+/* Contenedor principal */
+.registro-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Caja del formulario */
+.registro-box {
+  background: #fff;
+  padding: 35px 30px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  animation: fadeIn 0.6s ease-in-out;
+  text-align: center;
+}
+
+.registro-box h2 {
+  color: #111;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.registro-box h2 i {
+  color: #ffc107;
+  margin-right: 8px;
+}
+
+/* Inputs */
+.input-group {
+  position: relative;
+  margin-bottom: 18px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 12px 12px 40px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: 0.3s;
+  box-sizing: border-box;
+}
+
+.input-group input:focus {
+  border-color: #ffc107;
+  box-shadow: 0 0 6px rgba(255, 193, 7, 0.6);
+}
+
+.input-group i {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Botón */
+.btn {
+  width: 100%;
+  background-color: #ffc107;
+  border: none;
+  color: #111;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn:hover {
+  background-color: #e0a800;
+  transform: translateY(-2px);
+}
+
+/* Texto inferior */
+.login-texto {
+  margin-top: 15px;
+  font-size: 0.9rem;
+}
+
+.login-texto a {
+  color: #ffc107;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.login-texto a:hover {
+  text-decoration: underline;
+}
+
+/* Footer opcional */
+footer {
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 0.9rem;
+}
+
+/* Animación */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

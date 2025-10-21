@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Panel SPC - Seguridad Privada Colombiana</title>
+
+  <!-- Bootstrap + Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <style>
+    :root{
+      --gold: #d4a017;
+      --dark: #0d0d0d;
+      --light: #f9f9f9;
+    }
+    body{
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--dark), var(--gold));
+      min-height:100vh;
+      margin:0;
+      color:#222;
+      display:flex;
+      flex-direction:column;
+    }
+    header.topbar{
+      background:var(--dark);
+      color:#fff;
+      padding:12px 20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      box-shadow:0 4px 8px rgba(0,0,0,0.4);
+    }
+    header.topbar .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:700;
+    }
+    .container-main{
+      padding:28px;
+      flex:1;
+      display:flex;
+      justify-content:center;
+    }
+    .panel{
+      width:100%;
+      max-width:1300px;
+      background:#fff;
+      border-radius:14px;
+      padding:22px;
+      box-shadow:0 10px 26px rgba(0,0,0,0.25);
+    }
+    .card-custom{
+      border-radius:12px;
+      box-shadow:0 6px 14px rgba(0,0,0,0.08);
+      transition:transform .2s;
+    }
+    .card-custom:hover{
+      transform:translateY(-5px);
+    }
+    .btn-gold{
+      background: linear-gradient(135deg,var(--gold), #b98b10);
+      color:#121212;
+      border: none;
+      font-weight:700;
+    }
+    .btn-gold:hover{ opacity:.95; }
+    .floating-actions{
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      z-index:1000;
+    }
+    .fab{
+      width:56px;
+      height:56px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:var(--gold);
+      color:#111;
+      box-shadow:0 8px 20px rgba(0,0,0,0.25);
+      cursor:pointer;
+      border:none;
+      font-size:22px;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="brand">
+      <i class="bi bi-shield-fill-check" style="font-size:20px;color:var(--gold)"></i>
+      Seguridad Privada Colombiana
+    </div>
+    <div>
+      <span id="usuarioHeader" style="margin-right:15px; font-weight:600;"></span>
+      <button id="btnLogoutHeader" class="btn btn-outline-light btn-sm">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <main class="container-main">
+    <div class="panel">
+      <div class="row g-3">
+        <!-- Perfil -->
+        <div class="col-md-4">
+          <div class="card card-custom p-3">
+            <h4 id="perfilNombre"></h4>
+            <p><strong>Cargo:</strong> <span id="perfilCargo"></span></p>
+            <p><strong>Documento:</strong> <span id="perfilDocumento"></span></p>
+            <p><strong>Usuario:</strong> <span id="perfilUsuario"></span></p>
+            <hr/>
+            <p style="font-size:.9rem;color:#555">Acciones rápidas:</p>
+            <div class="d-flex gap-2 flex-wrap">
+              <button class="btn btn-sm btn-gold">📝 Nueva Novedad</button>
+              <button class="btn btn-sm btn-outline-secondary">📁 CSV</button>
+              <button class="btn btn-sm btn-outline-secondary">📄 PDF</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nómina y Beneficios -->
+        <div class="col-md-8">
+          <div class="card card-custom p-3">
+            <h5><i class="bi bi-cash-stack"></i> Nómina y Beneficios</h5>
+            <p>Consulta y descarga tus desprendibles, préstamos, descuentos y beneficios.</p>
+            <div class="d-flex flex-wrap gap-2">
+              <button class="btn btn-gold" onclick="generarPDF()">📥 Desprendible</button>
+              <button class="btn btn-gold">💳 Préstamos</button>
+              <button class="btn btn-gold">📉 Descuentos</button>
+              <button class="btn btn-gold">🎓 Programas</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Noticias -->
+      <div class="row mt-3">
+        <div class="col-12">
+          <div class="card card-custom p-3">
+            <h5><i class="bi bi-newspaper"></i> Noticias Recientes</h5>
+            <ul>
+              <li><b>[04/10/2025]</b> Nuevo protocolo de acceso. <a href="#">Leer más</a></li>
+              <li><b>[03/10/2025]</b> Capacitación de supervisores. <a href="#">Detalles</a></li>
+              <li><b>[01/10/2025]</b> Se actualizó la bitácora digital. <a href="#">Ver cambios</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Normas -->
+      <div class="row mt-3">
+        <div class="col-md-6">
+          <div class="card card-custom p-3">
+            <h5><i class="bi bi-exclamation-triangle-fill text-warning"></i> Normas Generales</h5>
+            <ul>
+              <li>Uso obligatorio de uniforme y carné.</li>
+              <li>Respeto a protocolos de acceso.</li>
+              <li>Reportar novedades en tiempo real.</li>
+              <li>Prohibido consumo de alcohol.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card card-custom p-3">
+            <h5><i class="bi bi-shield-lock"></i> Normas de Armas</h5>
+            <ul>
+              <li>Porte autorizado en servicio.</li>
+              <li>Armas registradas en armerillo.</li>
+              <li>Mantenimiento preventivo obligatorio.</li>
+              <li>Uso letal solo en <em>legítima defensa</em>.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bitácora -->
+      <div class="row mt-3">
+        <div class="col-12">
+          <div class="card card-custom p-3">
+            <h5><i class="bi bi-journal-text"></i> Bitácora</h5>
+            <table class="table table-sm table-bordered">
+              <thead><tr><th>#</th><th>Fecha</th><th>Usuario</th><th>Tipo</th><th>Notas</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>04/10/2025</td><td>jperez</td><td>Ingreso</td><td>Inicio de turno</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Botones flotantes -->
+  <div class="floating-actions">
+    <button class="fab" title="Nueva novedad"><i class="bi bi-plus-lg"></i></button>
+    <button class="fab" title="Soporte"><i class="bi bi-headset"></i></button>
+    <button class="fab" title="Descargar nómina"><i class="bi bi-download"></i></button>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    // Cargar datos del usuario logueado
+    document.addEventListener("DOMContentLoaded", () => {
+      const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
+      if (!usuarioActivo) {
+        window.location.href = "login.html"; // Si no hay sesión, volver al login
+        return;
+      }
+
+      // Mostrar datos en header y perfil
+      document.getElementById("usuarioHeader").textContent = "👤 " + usuarioActivo.nombre;
+      document.getElementById("perfilNombre").textContent = usuarioActivo.nombre;
+      document.getElementById("perfilCargo").textContent = usuarioActivo.rol;
+      document.getElementById("perfilDocumento").textContent = usuarioActivo.documento;
+      document.getElementById("perfilUsuario").textContent = usuarioActivo.usuario;
+    });
+
+    function generarPDF(){
+      const { jsPDF } = window.jspdf;
+      const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
+      if (!usuarioActivo) return;
+
+      const doc = new jsPDF();
+      doc.text("Desprendible de Nómina", 20, 20);
+      doc.text("Empleado: " + usuarioActivo.nombre, 20, 30);
+      doc.text("Cargo: " + usuarioActivo.rol, 20, 40);
+      doc.text("Documento: " + usuarioActivo.documento, 20, 50);
+      doc.text("Salario: $2,000,000", 20, 60);
+      doc.text("Descuentos: $200,000", 20, 70);
+      doc.text("Neto a pagar: $1,800,000", 20, 80);
+      doc.save("Desprendible_" + usuarioActivo.usuario + ".pdf");
+    }
+  </script>
+  <script src="js/logout.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
