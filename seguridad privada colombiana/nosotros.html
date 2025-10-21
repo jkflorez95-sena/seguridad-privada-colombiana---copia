@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Seguridad Privada Colombiana - Nosotros</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+  <style>
+    body { background-color: #f8f9fa; }
+    .card-custom {
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card-custom:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    footer {
+      background: #111;
+      color: #ddd;
+    }
+    .brand-icon { margin-right: 8px; }
+
+    /* Redes Sociales Sección */
+    .social-icons a {
+      font-size: 2rem;
+      margin: 0 10px;
+      color: #333;
+      transition: transform 0.3s, color 0.3s;
+    }
+    .social-icons a:hover {
+      transform: scale(1.2);
+    }
+    .social-icons .facebook { color: #1877f2; }
+    .social-icons .instagram { color: #e1306c; }
+    .social-icons .whatsapp { color: #25d366; }
+    .social-icons .linkedin { color: #0077b5; }
+
+    /* Botones flotantes */
+    .social-float {
+      position: fixed;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 1000;
+    }
+    .social-float a {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: #fff;
+      text-decoration: none;
+      transition: transform 0.3s;
+    }
+    .social-float a:hover { transform: scale(1.2); }
+    .social-float .facebook { background: #1877f2; }
+    .social-float .instagram { background: #e1306c; }
+    .social-float .whatsapp { background: #25d366; }
+    .social-float .linkedin { background: #0077b5; }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-warning" href="index.html">
+        <i class="bi bi-shield-fill-check brand-icon"></i> Seguridad Privada Colombiana
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link active" href="nosotros.html">Nosotros</a></li>
+          <li class="nav-item"><a class="nav-link" href="servicios.html">Servicios</a></li>
+          <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+          <li class="nav-item"><a class="nav-link" href="portal-empleados.html">Portal Empleados</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="container py-5 mt-5">
+    <div class="text-center mb-5">
+      <h1 class="fw-bold">Sobre Nosotros</h1>
+      <p class="text-muted">Conoce más acerca de Seguridad Privada Colombiana</p>
+    </div>
+
+    <div class="row g-4">
+      <!-- QUIÉNES SOMOS -->
+      <div class="col-md-6">
+        <div class="card card-custom h-100">
+          <div class="card-body">
+            <h3 class="fw-bold"><i class="bi bi-building-lock text-primary"></i> Quiénes Somos</h3>
+            <p>
+              <strong>Seguridad Privada Colombiana</strong> es una empresa especializada en soluciones
+              integrales de seguridad privada. Nuestro equipo está conformado por personal capacitado,
+              tecnología avanzada y protocolos que garantizan la protección de personas, bienes e instalaciones.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- NUESTRO COMPROMISO -->
+      <div class="col-md-6">
+        <div class="card card-custom h-100">
+          <div class="card-body">
+            <h3 class="fw-bold"><i class="bi bi-shield-lock-fill text-success"></i> Nuestro Compromiso</h3>
+            <ul>
+              <li>Actuar con ética, responsabilidad y profesionalismo.</li>
+              <li>Priorizar la seguridad e integridad de las personas.</li>
+              <li>Mejorar continuamente con capacitación y tecnología.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- VALORES -->
+      <div class="col-md-6">
+        <div class="card card-custom h-100">
+          <div class="card-body">
+            <h3 class="fw-bold"><i class="bi bi-heart-fill text-danger"></i> Nuestros Valores</h3>
+            <p class="mb-0">Integridad · Confianza · Excelencia · Responsabilidad</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTACTO -->
+      <div class="col-md-6">
+        <div class="card card-custom h-100">
+          <div class="card-body">
+            <h3 class="fw-bold"><i class="bi bi-telephone-fill text-warning"></i> Contáctanos</h3>
+            <p><strong>Teléfono:</strong> +57 300 000 0000</p>
+            <p><strong>Email:</strong> contacto@seguridadprivadacolombiana.com</p>
+            <a href="contacto.html" class="btn btn-warning mt-2">Ir a Contacto</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Redes Sociales -->
+    <div class="text-center my-5">
+      <h3 class="fw-bold">También puedes contactarnos en redes sociales</h3>
+      <div class="social-icons mt-3">
+        <a href="https://www.facebook.com" target="_blank" class="facebook"><i class="bi bi-facebook"></i></a>
+        <a href="https://www.instagram.com" target="_blank" class="instagram"><i class="bi bi-instagram"></i></a>
+        <a href="https://wa.me/573000000000" target="_blank" class="whatsapp"><i class="bi bi-whatsapp"></i></a>
+        <a href="https://www.linkedin.com" target="_blank" class="linkedin"><i class="bi bi-linkedin"></i></a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Botones flotantes -->
+  <div class="social-float">
+    <a href="https://www.facebook.com" target="_blank" class="facebook"><i class="bi bi-facebook"></i></a>
+    <a href="https://www.instagram.com" target="_blank" class="instagram"><i class="bi bi-instagram"></i></a>
+    <a href="https://wa.me/573000000000" target="_blank" class="whatsapp"><i class="bi bi-whatsapp"></i></a>
+    <a href="https://www.linkedin.com" target="_blank" class="linkedin"><i class="bi bi-linkedin"></i></a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="text-center p-3 mt-5">
+    <div class="container">
+      <p class="mb-0">&copy; 2025 <strong>Seguridad Privada Colombiana</strong>. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

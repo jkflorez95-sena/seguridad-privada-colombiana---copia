@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Seguridad Privada Colombiana</title>
+
+  <!-- Bootstrap + Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- FontAwesome kit (ya en tu original) -->
+  <script src="https://kit.fontawesome.com/a2d9d5a64b.js" crossorigin="anonymous"></script>
+
+  <!-- jsPDF (si en el futuro lo usas) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <style>
+    /* --- TU ESTILO ORIGINAL --- */
+    .hero {
+      background: url('img principal.jpg') center/cover no-repeat;
+      height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+    }
+    .card-hover {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-8px);
+      box-shadow: 0px 12px 24px rgba(0,0,0,0.15);
+    }
+    .btn-empleados {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 999;
+      border-radius: 50px;
+      padding: 12px 20px;
+    }
+    .hover-btn {
+      transition: opacity 0.4s ease;
+      opacity: 0;
+    }
+    .card:hover .hover-btn {
+      opacity: 1 !important;
+    }
+    body {
+      padding-top: 80px; /* evita que el buscador quede oculto bajo el navbar */
+    }
+
+    /* --- NUEVOS ESTILOS AGREGADOS (no eliminan ni cambian lo tuyo) --- */
+    .news-card .card-body { min-height: 170px; }
+    .testimonial-card { min-height: 170px; }
+    .clients-logo { max-height: 80px; object-fit: contain; filter: grayscale(0.02); opacity: .95; }
+    .cta-large { background: linear-gradient(90deg,#d4a017,#b98b10); color:#111; border:none; font-weight:700; padding:14px 20px; border-radius:10px; }
+    .floating-btn {
+      position: fixed;
+      right: 20px;
+      bottom: 22px;
+      z-index: 1100;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      align-items:center;
+    }
+    .floating-btn a {
+      width:56px;
+      height:56px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      box-shadow:0 6px 18px rgba(0,0,0,0.25);
+      text-decoration:none;
+      font-size:20px;
+    }
+    .floating-whatsapp { background:#25D366; }
+    .floating-emerg { background:#DC3545; }
+    .floating-portal { background:#FFC107; color:#111; }
+
+    .extended-footer { background:#0b0b0b; color:#ddd; padding:28px 0; }
+    .extended-footer h5 { color:#ffc107; font-weight:700; }
+    .extended-footer a { color:#bbb; text-decoration:none; }
+    .extended-footer a:hover { color:#ffc107; }
+    .social-icons img { width:34px; margin:0 8px; vertical-align:middle; filter: brightness(0) invert(1); transition:.25s; }
+    .social-icons img:hover { filter:none; transform:scale(1.05); }
+
+    .ratio.shadow-lg { box-shadow: 0 8px 20px rgba(0,0,0,0.15); border-radius:8px; overflow:hidden; }
+
+    /* small responsive */
+    @media (max-width:720px) {
+      .hero { height: 60vh; padding: 30px 10px; }
+      .floating-btn { right: 14px; bottom: 14px; gap:8px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <!-- Logo o nombre de la empresa -->
+    <a class="navbar-brand fw-bold text-warning" href="index.html">
+      <i class="bi bi-shield-fill-check"></i> Seguridad Privada Colombiana
+    </a>
+
+    <!-- Botón hamburguesa para móviles -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Enlaces -->
+    <div class="collapse navbar-collapse" id="menu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a href="index.html" class="nav-link">Inicio</a></li>
+        <li class="nav-item"><a href="nosotros.html" class="nav-link">Nosotros</a></li>
+        <li class="nav-item"><a href="servicios.html" class="nav-link">Servicios</a></li>
+        <li class="nav-item"><a href="contacto.html" class="nav-link">Contacto</a></li>
+        <li class="nav-item"><a href="trabaje-con-nosotros.html" class="nav-link">Trabaje con Nosotros</a></li>
+        <!-- Botón portal empleados corregido -->
+        <li class="nav-item">
+          <a href="login.html" class="btn btn-warning fw-bold ms-2">
+            <i class="fas fa-user-lock"></i> Portal Empleados
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Buscador -->
+<form class="d-flex w-75 mx-auto mt-5 mb-3 position-relative z-3">
+  <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
+  <button class="btn btn-warning" type="submit">
+    <i class="bi bi-search"></i>
+  </button>
+</form>
+
+<!-- HERO -->
+<header class="hero text-center">
+  <div>
+    <h1 class="display-4 fw-bold">Bienvenidos a Seguridad Privada Colombiana</h1>
+    <p class="lead">Protegiendo lo que más importa con compromiso y confianza.</p>
+    <a href="servicios.html" class="btn btn-warning btn-lg mt-3 fw-bold">Conoce nuestros servicios</a>
+  </div>
+</header>
+
+<!-- Sección Misión y Visión con tarjetas -->
+<section id="mision-vision" class="py-5 bg-light">
+  <div class="container">
+    <div class="row g-4">
+
+      <!-- Tarjeta Misión -->
+      <div class="col-md-6 fade-in-up">
+        <div class="card shadow-lg border-0 rounded-4 h-100">
+          <div class="card-body text-center p-5">
+            <div class="mb-4">
+              <i class="fas fa-bullseye fa-3x text-primary"></i>
+            </div>
+            <h2 class="fw-bold text-primary">Misión</h2>
+            <p class="text-muted mt-3">
+              Brindar soluciones integrales de seguridad privada con personal altamente capacitado, 
+              garantizando confianza y tranquilidad a nuestros clientes.
+            </p>
+            <button class="btn btn-outline-primary rounded-pill shadow-sm mt-4" 
+                    data-bs-toggle="modal" data-bs-target="#modalMision">
+              Conoce Más <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tarjeta Visión -->
+      <div class="col-md-6 fade-in-up">
+        <div class="card shadow-lg border-0 rounded-4 h-100">
+          <div class="card-body text-center p-5">
+            <div class="mb-4">
+              <i class="fas fa-eye fa-3x text-success"></i>
+            </div>
+            <h2 class="fw-bold text-success">Visión</h2>
+            <p class="text-muted mt-3">
+              Ser la empresa líder en seguridad privada en Colombia, reconocida por la excelencia, 
+              compromiso y profesionalismo de nuestros servicios.
+            </p>
+            <button class="btn btn-outline-success rounded-pill shadow-sm mt-4" 
+                    data-bs-toggle="modal" data-bs-target="#modalVision">
+              Conoce Más <i class="fas fa-info-circle"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MODAL MISIÓN -->
+<div class="modal fade" id="modalMision" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content rounded-4 shadow-lg">
+      <div class="modal-header bg-primary text-white rounded-top-4">
+        <h5 class="modal-title"><i class="fas fa-bullseye"></i> Nuestra Misión</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body p-4">
+        <p>
+          Nuestra misión es ofrecer soluciones de seguridad integral adaptadas a las necesidades 
+          específicas de cada cliente. Nos enfocamos en la prevención, monitoreo constante y 
+          respuesta rápida ante situaciones de riesgo, garantizando la tranquilidad de hogares, 
+          empresas y comunidades.
+        </p>
+        <ul class="list-unstyled mt-3">
+          <li><i class="fas fa-check-circle text-primary"></i> Personal altamente capacitado</li>
+          <li><i class="fas fa-check-circle text-primary"></i> Monitoreo 24/7</li>
+          <li><i class="fas fa-check-circle text-primary"></i> Tecnología de última generación</li>
+          <li class="nav-item"><a href="trabaje-con-nosotros.html" class="nav-link">Trabaje con Nosotros</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL VISIÓN -->
+<div class="modal fade" id="modalVision" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content rounded-4 shadow-lg">
+      <div class="modal-header bg-success text-white rounded-top-4">
+        <h5 class="modal-title"><i class="fas fa-eye"></i> Nuestra Visión</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body p-4">
+        <p>
+          Nos proyectamos como la empresa líder en seguridad privada en Colombia, siendo 
+          reconocidos por la innovación, la excelencia en el servicio y la confianza que 
+          transmitimos a nuestros clientes.
+        </p>
+        <ul class="list-unstyled mt-3">
+          <li><i class="fas fa-star text-success"></i> Excelencia en la atención</li>
+          <li><i class="fas fa-users text-success"></i> Compromiso con nuestros clientes</li>
+          <li><i class="fas fa-shield-alt text-success"></i> Profesionalismo en cada servicio</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICIOS ACTIVOS -->
+<section class="container py-5">
+  <h2 class="text-center fw-bold mb-4">Servicios Activos</h2>
+  <div class="row g-4 text-center">
+    <div class="col-md-3">
+      <div class="card shadow-lg border-0 card-hover">
+        <div class="card-body">
+          <i class="fas fa-users fa-3x text-primary mb-3"></i>
+          <h4 class="fw-bold">45+</h4>
+          <p class="text-muted">Personal Activo</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card shadow-lg border-0 card-hover">
+        <div class="card-body">
+          <i class="fas fa-clock fa-3x text-success mb-3"></i>
+          <h4 class="fw-bold">24/7</h4>
+          <p class="text-muted">Monitoreo</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card shadow-lg border-0 card-hover">
+        <div class="card-body">
+          <i class="fas fa-smile fa-3x text-warning mb-3"></i>
+          <h4 class="fw-bold">99%</h4>
+          <p class="text-muted">Satisfacción Clientes</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card shadow-lg border-0 card-hover">
+        <div class="card-body">
+          <i class="fas fa-video fa-3x text-danger mb-3"></i>
+          <h4 class="fw-bold">Videovigilancia</h4>
+          <p class="text-muted">CCTV</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NUESTROS SERVICIOS -->
+<section class="container py-5">
+  <h2 class="text-center fw-bold mb-4">Nuestros Servicios</h2>
+  <div class="row g-4">
+    <div class="col-md-3">
+      <div class="card card-hover h-100 border-0 shadow-lg">
+        <div class="position-relative">
+          <img src="supervisor.jpg" class="card-img-top" alt="Supervisor">
+          <a href="supervisor.html" class="btn btn-warning position-absolute top-50 start-50 translate-middle hover-btn">Más información</a>
+        </div>
+        <div class="card-body text-center">
+          <h5 class="card-title fw-bold">Supervisor</h5>
+          <p class="card-text">Coordina y supervisa equipos de seguridad asegurando cumplimiento de protocolos.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card card-hover h-100 border-0 shadow-lg">
+        <div class="position-relative">
+          <img src="vigilante.jpg" class="card-img-top" alt="Vigilante">
+          <a href="vigilante.html" class="btn btn-warning position-absolute top-50 start-50 translate-middle hover-btn">Más información</a>
+        </div>
+        <div class="card-body text-center">
+          <h5 class="card-title fw-bold">Vigilante</h5>
+          <p class="card-text">Protección de instalaciones, control de accesos y resguardo de bienes.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card card-hover h-100 border-0 shadow-lg">
+        <div class="position-relative">
+          <img src="escolta.jpg" class="card-img-top" alt="Escolta">
+          <a href="escolta.html" class="btn btn-warning position-absolute top-50 start-50 translate-middle hover-btn">Más información</a>
+        </div>
+        <div class="card-body text-center">
+          <h5 class="card-title fw-bold">Escolta</h5>
+          <p class="card-text">Protección personal, prevención de riesgos y acompañamiento seguro.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card card-hover h-100 border-0 shadow-lg">
+        <div class="position-relative">
+          <img src="videovigilancia.jpg" class="card-img-top" alt="Videovigilancia CCTV">
+          <a href="videovigilancia.html" class="btn btn-warning position-absolute top-50 start-50 translate-middle hover-btn">Más información</a>
+        </div>
+        <div class="card-body text-center">
+          <h5 class="card-title fw-bold">Videovigilancia CCTV</h5>
+          <p class="card-text">Monitoreo en tiempo real con sistemas de alta definición y control remoto.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ACCIONES RAPIDAS -->
+<section class="container py-5 text-center">
+  <h2 class="fw-bold mb-4">Acciones Rápidas</h2>
+  <a href="contacto.html" class="btn btn-primary btn-lg m-2"><i class="fas fa-phone"></i> Contáctanos</a>
+  <a href="login.html" class="btn btn-success btn-lg m-2"><i class="fas fa-user-lock"></i> Portal Empleados</a>
+</section>
+
+<!-- NOTICIAS CORPORATIVAS (ANEXADO) -->
+<section class="container py-5">
+  <h2 class="text-center fw-bold mb-4">Noticias Corporativas</h2>
+
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card news-card shadow-sm h-100">
+        <img src="licitacion.png" class="card-img-top" alt="Licitación ganada">
+        <div class="card-body">
+          <h5 class="card-title">SPC adjudicada en licitación para vigilancia bancaria nacional</h5>
+          <p class="card-text">En un proceso competitivo que evaluó capacidades operativas, tecnológicas y de cumplimiento normativo, Seguridad Privada Colombiana (SPC) resultó adjudicada como proveedor principal de servicios de vigilancia para una importante red bancaria. El contrato incluye provisión de personal especializado, integración de videovigilancia y monitoreo remoto, además de un plan de formación continua para el personal asignado.</p>
+          <p class="card-text"><small class="text-muted">Publicado: 04/10/2025</small></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card news-card shadow-sm h-100">
+        <img src="capacitacion.png" class="card-img-top" alt="Capacitación">
+        <div class="card-body">
+          <h5 class="card-title">Lanzamiento del programa anual de formación y certificación</h5>
+          <p class="card-text">Con el objetivo de elevar los estándares operativos, SPC presentó su programa anual de capacitación que abarca manejo defensivo, primeros auxilios, protocolos anti-incendio y entrenamiento en formación de escoltas. La iniciativa incluye módulos presenciales y virtuales, evaluaciones periódicas y certificación por competencias para todos los cargos.</p>
+          <p class="card-text"><small class="text-muted">Publicado: 15/09/2025</small></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card news-card shadow-sm h-100">
+        <img src="expansion.png" class="card-img-top" alt="Expansión">
+        <div class="card-body">
+          <h5 class="card-title">Expansión regional: nueva sede en medellin </h5>
+          <p class="card-text">Como resultado del crecimiento sostenido y la demanda de servicios integrales, SPC anuncia la obra de nueva cede , fortaleciendo la capacidad de respuesta y proximidad con clientes. Esta oficina contará con centro de entrenamiento, logística y un centro de monitoreo conectado a la central nacional.</p>
+          <p class="card-text"><small class="text-muted">Publicado: 05/09/2025</small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mt-4">
+    <a href="noticias.html" class="btn btn-outline-secondary">Ver todas las noticias</a>
+  </div>
+</section>
+
+<!-- TESTIMONIOS (ANEXADO) -->
+<section class="bg-light py-5">
+  <div class="container">
+    <h2 class="text-center fw-bold mb-5">Testimonios</h2>
+
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card testimonial-card p-3 shadow-sm h-100">
+          <div class="card-body">
+            <p class="mb-3">“Desde que SPC asumió la seguridad de nuestras plantas logísticas, hemos visto una reducción sustancial en incidentes relacionados con seguridad y una mejora en los tiempos de respuesta. Valoramos especialmente la profesionalidad del equipo y el rigor en el cumplimiento de protocolos. La colaboración con SPC también nos permitió mejorar la trazabilidad de accesos y diseñar planes de contingencia más robustos.”</p>
+            <h6 class="fw-bold mb-0">Laura Jiménez</h6>
+            <small class="text-muted">Directora de Operaciones - Grupo Logístico Sol</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card testimonial-card p-3 shadow-sm h-100">
+          <div class="card-body">
+            <p class="mb-3">“Como vigilante en SPC, mi experiencia ha sido muy positiva: recibimos entrenamiento continuo, herramientas tecnológicas que facilitan el trabajo y una comunicación fluida con supervisión. La compañía invierte en bienestar y formación, lo cual se traduce en equipos más motivados y clientes satisfechos. Recomiendo SPC por su seriedad y enfoque humano.”</p>
+            <h6 class="fw-bold mb-0">Carlos Méndez</h6>
+            <small class="text-muted">Vigilante - SPC</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card testimonial-card p-3 shadow-sm h-100">
+          <div class="card-body">
+            <p class="mb-3">“Contratamos SPC para la vigilancia de una serie de inmuebles corporativos y la implementación de un sistema CCTV integrado. El proyecto se ejecutó en tiempo y forma, con alta calidad técnica y asesoría constante. Destacamos la capacidad de SPC para adaptar soluciones a necesidades particulares y su cumplimiento de normas legales y administrativas.”</p>
+            <h6 class="fw-bold mb-0">Javier Ortega</h6>
+            <small class="text-muted">Gerente de Seguridad - Inmobiliaria Norte</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTES Y ALIANZAS (ANEXADO) -->
+<section class="container py-5">
+  <h2 class="text-center fw-bold mb-4">Nuestros Clientes y Alianzas</h2>
+
+  <div id="carouselClientes" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="d-flex justify-content-center align-items-center gap-5 py-3">
+          <img src="cliente1.png" class="clients-logo" alt="Cliente 1">
+          <img src="cliente2.png" class="clients-logo" alt="Cliente 2">
+          <img src="cliente3.png" class="clients-logo" alt="Cliente 3">
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="d-flex justify-content-center align-items-center gap-5 py-3">
+          <img src="cliente4.png" class="clients-logo" alt="Cliente 4">
+          <img src="cliente5.png" class="clients-logo" alt="Cliente 5">
+          <img src="cliente6.png" class="clients-logo" alt="Cliente 6">
+        </div>
+      </div>
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselClientes" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+      <span class="visually-hidden">Anterior</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselClientes" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+      <span class="visually-hidden">Siguiente</span>
+    </button>
+  </div>
+</section>
+
+<!-- LLAMADOS A LA ACCIÓN (ANEXADO) -->
+<section class="py-5 text-center">
+  <div class="container">
+    <h2 class="fw-bold mb-3">¿Quieres trabajar con nosotros o solicitar un servicio?</h2>
+    <p class="mb-4">Solicita una cotización rápida o aplica para ser parte de nuestro equipo. Atendemos requerimientos 24/7 y ofrecemos soluciones a la medida.</p>
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+      <a href="trabaje-con-nosotros.html" class="btn cta-large">Trabaje con Nosotros</a>
+      <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#modalSolicitud">Solicita un Servicio</button>
+    </div>
+  </div>
+</section>
+
+<!-- MODAL: Solicitar Servicio (ANEXADO) -->
+<div class="modal fade" id="modalSolicitud" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Solicitud rápida de servicio</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formSolicitud">
+          <div class="mb-3">
+            <label class="form-label">Nombre completo</label>
+            <input class="form-control" id="sol_nombre" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Empresa / Organización</label>
+            <input class="form-control" id="sol_empresa">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Teléfono o WhatsApp</label>
+            <input class="form-control" id="sol_telefono" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control" id="sol_email">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Mensaje / Descripción</label>
+            <textarea class="form-control" rows="3" id="sol_mensaje"></textarea>
+          </div>
+          <div class="text-end">
+            <button type="submit" class="btn btn-warning">Enviar solicitud</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAPA (ANEXADO) -->
+<section class="container py-5">
+  <h2 class="text-center fw-bold mb-4">Ubicación</h2>
+  <div class="ratio ratio-16x9 shadow-lg rounded">
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.7866341519!2d-74.14626832594866!3d4.603847942421167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9f57c7f7f2a7%3A0xe5dc6db3ad2340!2sTimiza%2C%20Kennedy%2C%20Bogot%C3%A1!5e0!3m2!1ses-419!2sco!4v1728150523456!5m2!1ses-419!2sco" 
+      width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</section>
+
+<!-- Pie de contacto extendido (ANEXADO) -->
+
+
+
+
+<!-- ======= Footer Unificado ======= -->
+<footer class="bg-dark text-white pt-4">
+  <div class="container">
+    <div class="row">
+      <!-- Contacto -->
+      <div class="col-md-3">
+        <h5 class="text-warning">Contacto</h5>
+        <p>Dirección: Calle 42Bsur#72h-15 Kennedy, Bogotá, Colombia</p>
+        <p>Tel: (601) 555 1234</p>
+        <p>Correo: seguridadprivadacolombianaspcc.com.co</p>
+      </div>
+
+      <!-- Enlaces -->
+      <div class="col-md-3">
+        <h5 class="text-warning">Enlaces rápidos</h5>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-white">Nosotros</a></li>
+          <li><a href="#" class="text-white">Servicios</a></li>
+          <li><a href="#" class="text-white">Trabaje con Nosotros</a></li>
+          <li><a href="#" class="text-white">Política de privacidad</a></li>
+        </ul>
+      </div>
+
+      <!-- Horario -->
+      <div class="col-md-3">
+        <h5 class="text-warning">Horario</h5>
+        <p>Lun - Vie: 8:00 - 18:00</p>
+        <p>Sáb: 9:00 - 13:00</p>
+      </div>
+
+      <!-- Redes -->
+      <div class="col-md-3">
+        <h5 class="text-warning">Síguenos</h5>
+        <div class="d-flex gap-3">
+          <a href="#"><img src="linkedin.png" alt="LinkedIn" width="32"></a>
+          <a href="#"><img src="instagram.png" alt="Instagram" width="32"></a>
+          <a href="#"><img src="facebook.png" alt="Facebook" width="32"></a>
+          <a href="#"><img src="whatsapp.png" alt="WhatsApp" width="32"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center py-2 bg-secondary mt-3">
+    <p class="mb-0">© 2025 Seguridad Privada Colombiana. Todos los derechos reservados.</p>
+  </div>
+</footer>
+<!-- ======= Fin Footer ======= -->
+
+
+<!-- Botones flotantes redes sociales -->
+<div class="position-fixed" style="top: 40%; right: 20px; z-index: 1000;">
+  <!-- WhatsApp -->
+  <a href="https://wa.me/573001112233" target="_blank" 
+     class="d-block mb-3 text-success" 
+     style="font-size: 2.5rem;">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- Facebook -->
+  <a href="https://facebook.com" target="_blank" 
+     class="d-block mb-3 text-primary" 
+     style="font-size: 2.5rem;">
+    <i class="fab fa-facebook"></i>
+  </a>
+
+  <!-- Instagram -->
+  <a href="https://instagram.com" target="_blank" 
+     class="d-block text-danger" 
+     style="font-size: 2.5rem;">
+    <i class="fab fa-instagram"></i>
+  </a>
+</div>
+
+
+<!-- Script de animaciones (ORIGINAL, sin cambios) -->
+<script>
+  // Animar el fade-in al hacer scroll
+  const elements = document.querySelectorAll('.fade-in-up');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
+      }
+    });
+  }, { threshold: 0.2 });
+  elements.forEach(el => observer.observe(el));
+
+  // Contadores animados
+  const counters = document.querySelectorAll('.counter');
+  counters.forEach(counter => {
+    const updateCount = () => {
+      const target = +counter.getAttribute('data-target');
+      const current = +counter.innerText.replace(/\D/g, '');
+      const increment = Math.ceil(target / 80);
+
+      if (current < target) {
+        counter.innerText = current + increment + (counter.innerText.includes('%') ? '%' : '+');
+        setTimeout(updateCount, 30);
+      } else {
+        counter.innerText = target + (counter.innerText.includes('%') ? '%' : '+');
+      }
+    };
+
+    const observerCounter = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        updateCount();
+        observerCounter.disconnect();
+      }
+    }, { threshold: 0.5 });
+    observerCounter.observe(counter);
+  });
+</script>
+
+<!-- SCRIPTS ANEXADOS (NO REMUEVEN TU LÓGICA) -->
+<script>
+  // Manejo del modal de solicitud: simulación de envío
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('formSolicitud');
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Recolectar datos (puedes enviarlos a tu servidor)
+        const data = {
+          nombre: document.getElementById('sol_nombre').value,
+          empresa: document.getElementById('sol_empresa').value,
+          telefono: document.getElementById('sol_telefono').value,
+          email: document.getElementById('sol_email').value,
+          mensaje: document.getElementById('sol_mensaje').value
+        };
+        // Simulación: mostrar confirmación
+        alert('Solicitud recibida. Gracias, ' + (data.nombre || '') + '. Nos pondremos en contacto.');
+        // Cerrar modal
+        const modalEl = document.getElementById('modalSolicitud');
+        if (modalEl) {
+          const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+          modal.hide();
+        }
+        form.reset();
+      });
+    }
+
+    // Inicializar carousel clientes si existe
+    const carouselClientes = document.getElementById('carouselClientes');
+    if (carouselClientes) {
+      // bootstrap carousel auto-activation already handled via data-bs-ride="carousel"
+    }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

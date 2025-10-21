@@ -1,0 +1,68 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+header {
+  background: #0a2a66;
+  color: white;
+  padding: 15px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav ul li a.active {
+  border-bottom: 2px solid #f9a825;
+}
+
+#hero {
+  background: url("../img/seguridad.jpg") center/cover no-repeat;
+  color: white;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+main {
+  padding: 40px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+}
+
+form input, form textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background: #f9a825;
+  border: none;
+  padding: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+footer {
+  text-align: center;
+  background: #0a2a66;
+  color: white;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+  

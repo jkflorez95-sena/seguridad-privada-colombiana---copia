@@ -1,0 +1,138 @@
+/* General */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4; /* Gris claro */
+  color: #333;
+}
+
+/* Encabezado */
+header {
+  background-color: #000000; /* Negro corporativo */
+  color: #ffffff;
+  text-align: center;
+  padding: 20px 0;
+}
+
+/* Contenedor principal */
+.contenedor {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 30px;
+}
+
+/* Tarjetas */
+.tarjeta {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.tarjeta h2 {
+  margin-top: 0;
+  color: #000000; /* Negro para títulos */
+}
+
+.tarjeta p {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Botones */
+button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background-color: #008f39; /* Verde corporativo */
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #006c2c; /* Verde más oscuro al pasar */
+}
+
+/* Pie de página */
+footer {
+  background-color: #000000;
+  color: #ffffff;
+  text-align: center;
+  padding: 15px 0;
+  margin-top: 30px;
+  font-size: 14px;
+}
+/* General */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4; /* Gris claro */
+  color: #333;
+}
+
+/* Encabezado */
+header {
+  background-color: #000000; /* Negro corporativo */
+  color: #ffffff;
+  text-align: center;
+  padding: 20px 0;
+}
+
+/* Contenedor principal */
+.contenedor {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 30px;
+}
+
+/* Tarjetas */
+.tarjeta {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.tarjeta h2 {
+  margin-top: 0;
+  color: #000000; /* Negro para títulos */
+}
+
+.tarjeta p {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Botones */
+button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background-color: #008f39; /* Verde corporativo */
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #006c2c; /* Verde más oscuro al pasar */
+}
+
+/* Pie de página */
+footer {
+  background-color: #000000;
+  color: #ffffff;
+  text-align: center;
+  padding: 15px 0;
+  margin-top: 30px;
+  font-size: 14px;
+}
