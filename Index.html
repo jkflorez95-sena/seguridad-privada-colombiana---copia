@@ -9,14 +9,14 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
-  <!-- FontAwesome kit (ya en tu original) -->
+  <!-- FontAwesome kit  -->
   <script src="https://kit.fontawesome.com/a2d9d5a64b.js" crossorigin="anonymous"></script>
 
-  <!-- jsPDF (si en el futuro lo usas) -->
+  <!-- jsPDF (-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <style>
-    /* --- TU ESTILO ORIGINAL --- */
+    /* --- ESTILO ORIGINAL --- */
     .hero {
       background: url('img principal.jpg') center/cover no-repeat;
       height: 90vh;
@@ -49,10 +49,10 @@
       opacity: 1 !important;
     }
     body {
-      padding-top: 80px; /* evita que el buscador quede oculto bajo el navbar */
+      padding-top: 80px; 
     }
 
-    /* --- NUEVOS ESTILOS AGREGADOS (no eliminan ni cambian lo tuyo) --- */
+    /* --- NUEVOS ESTILOS AGREGADOS--- */
     .news-card .card-body { min-height: 170px; }
     .testimonial-card { min-height: 170px; }
     .clients-logo { max-height: 80px; object-fit: contain; filter: grayscale(0.02); opacity: .95; }
@@ -355,7 +355,7 @@
   <a href="login.html" class="btn btn-success btn-lg m-2"><i class="fas fa-user-lock"></i> Portal Empleados</a>
 </section>
 
-<!-- NOTICIAS CORPORATIVAS (ANEXADO) -->
+<!-- NOTICIAS CORPORATIVAS-->
 <section class="container py-5">
   <h2 class="text-center fw-bold mb-4">Noticias Corporativas</h2>
 
@@ -399,7 +399,7 @@
   </div>
 </section>
 
-<!-- TESTIMONIOS (ANEXADO) -->
+<!-- TESTIMONIOS-->
 <section class="bg-light py-5">
   <div class="container">
     <h2 class="text-center fw-bold mb-5">Testimonios</h2>
@@ -438,7 +438,7 @@
   </div>
 </section>
 
-<!-- CLIENTES Y ALIANZAS (ANEXADO) -->
+<!-- CLIENTES Y ALIANZAS-->
 <section class="container py-5">
   <h2 class="text-center fw-bold mb-4">Nuestros Clientes y Alianzas</h2>
 
@@ -471,7 +471,7 @@
   </div>
 </section>
 
-<!-- LLAMADOS A LA ACCIÓN (ANEXADO) -->
+<!-- LLAMADOS A LA ACCIÓN-->
 <section class="py-5 text-center">
   <div class="container">
     <h2 class="fw-bold mb-3">¿Quieres trabajar con nosotros o solicitar un servicio?</h2>
@@ -483,7 +483,7 @@
   </div>
 </section>
 
-<!-- MODAL: Solicitar Servicio (ANEXADO) -->
+<!-- MODAL: Solicitar Servicio-->
 <div class="modal fade" id="modalSolicitud" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -534,7 +534,7 @@
   </div>
 </section>
 
-<!-- Pie de contacto extendido (ANEXADO) -->
+<!-- Pie de contacto extendido-->
 
 
 
@@ -614,7 +614,7 @@
 </div>
 
 
-<!-- Script de animaciones (ORIGINAL, sin cambios) -->
+<!-- Script de animaciones-->
 <script>
   // Animar el fade-in al hacer scroll
   const elements = document.querySelectorAll('.fade-in-up');
@@ -653,7 +653,7 @@
   });
 </script>
 
-<!-- SCRIPTS ANEXADOS (NO REMUEVEN TU LÓGICA) -->
+<!-- SCRIPTS ANEXADOS -->
 <script>
   // Manejo del modal de solicitud: simulación de envío
   document.addEventListener('DOMContentLoaded', function() {
@@ -661,7 +661,7 @@
     if (form) {
       form.addEventListener('submit', function(e) {
         e.preventDefault();
-        // Recolectar datos (puedes enviarlos a tu servidor)
+        // Recolectar datos 
         const data = {
           nombre: document.getElementById('sol_nombre').value,
           empresa: document.getElementById('sol_empresa').value,
