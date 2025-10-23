@@ -1,119 +1,126 @@
-/* ====== empleados.js ====== */
-
-// Claves de almacenamiento
+// ======================= CONFIGURACIÓN GENERAL =======================
 const STORAGE_KEY = "empleadosSPC";
 const SESSION_KEY = "usuarioActivo";
 
-/* ==============================
-   Funciones de utilidad
-============================== */
+// Guardar empleados en localStorage
+function guardarEmpleado(empleado) {
+  let empleados = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 
-// Obtener lista de empleados desde localStorage
-function obtenerEmpleados() {
-  return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-}
-
-// Guardar lista de empleados en localStorage
-function guardarEmpleados(empleados) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(empleados));
-}
-
-// Registrar un nuevo empleado
-function registrarEmpleado(empleado) {
-  let empleados = obtenerEmpleados();
-
-  // Verificar si ya existe
-  if (empleados.find(e => e.usuario === empleado.usuario)) {
-    alert("⚠️ El usuario ya existe, elija otro.");
+  // Verificar si ya existe usuario o documento
+  const existe = empleados.some(
+    (e) => e.usuario === empleado.usuario || e.documento === empleado.documento
+  );
+  if (existe) {
+    alert("⚠️ El usuario o documento ya está registrado.");
     return false;
   }
 
   empleados.push(empleado);
-  guardarEmpleados(empleados);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(empleados));
   return true;
 }
 
-// Iniciar sesión
-function login(usuario, password, rol) {
-  const empleados = obtenerEmpleados();
-  const empleado = empleados.find(
-    e => e.usuario === usuario && e.password === password && e.rol === rol
-  );
-
-  if (empleado) {
-    localStorage.setItem(SESSION_KEY, JSON.stringify(empleado));
-
-    // Redirección según rol
-    switch (empleado.rol) {
-      case "Vigilante":
-        window.location.href = "empleados_portal/portal_vigilante.html";
-        break;
-      case "Supervisor":
-        window.location.href = "empleados_portal/portal_supervisor.html";
-        break;
-      case "Escolta":
-        window.location.href = "empleados_portal/portal_escolta.html";
-        break;
-      case "Jefe de Seguridad":
-        window.location.href = "empleados_portal/portal_jefe.html";
-        break;
-      case "Operador de medios tecnológicos":
-        window.location.href = "empleados_portal/portal_operador.html";
-        break;
-      case "Administrador":
-        window.location.href = "empleados_portal/portal_admin.html";
-        break;
-      default:
-        alert("Rol no reconocido.");
-        logout();
-    }
-    return true;
-  }
-  return false;
+// Obtener empleados
+function obtenerEmpleados() {
+  return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 }
 
-// Obtener usuario activo
-function obtenerUsuarioActivo() {
+// Guardar sesión activa
+function guardarSesion(usuario) {
+  localStorage.setItem(SESSION_KEY, JSON.stringify(usuario));
+}
+
+// Obtener sesión activa
+function obtenerSesion() {
   return JSON.parse(localStorage.getItem(SESSION_KEY));
 }
 
 // Cerrar sesión
-function logout() {
+function cerrarSesion() {
   localStorage.removeItem(SESSION_KEY);
   window.location.href = "login.html";
 }
 
-/* ==============================
-   Inicialización con usuarios por defecto
-============================== */
-(function inicializarUsuarios() {
-  if (!localStorage.getItem(STORAGE_KEY)) {
-    const iniciales = [
-      {
-        nombre: "Administrador General",
-        usuario: "admin",
-        password: "1234",
-        documento: "CC 100000001",
-        rol: "Administrador",
-        email: "admin@spc.com"
-      },
-      {
-        nombre: "Pedro López",
-        usuario: "vigilante1",
-        password: "1111",
-        documento: "CC 100000002",
-        rol: "Vigilante",
-        email: "vigilante@spc.com"
-      },
-      {
-        nombre: "Carlos Gómez",
-        usuario: "supervisor1",
-        password: "2222",
-        documento: "CC 100000003",
-        rol: "Supervisor",
-        email: "supervisor@spc.com"
-      }
-    ];
-    guardarEmpleados(iniciales);
-  }
-})();
+// ======================= REGISTRO =======================
+const registroForm = document.getElementById("registroForm");
+if (registroForm) {
+  registroForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const nombre = document.getElementById("nombre").value.trim();
+    const documento = document.getElementById("documento").value.trim();
+    const usuario = document.getElementById("usuario").value.trim();
+    const cargo = document.getElementById("cargo").value;
+    const password = document.getElementById("password").value.trim();
+
+    if (!nombre || !documento || !usuario || !cargo || !password) {
+      alert("⚠️ Todos los campos son obligatorios.");
+      return;
+    }
+
+    // Validación de contraseña mínima
+    if (password.length < 8) {
+      alert("⚠️ La contraseña debe tener al menos 8 caracteres.");
+      return;
+    }
+
+    const nuevoEmpleado = {
+      nombre,
+      documento,
+      usuario,
+      cargo,
+      password, // Guardamos la contraseña correctamente
+    };
+
+    if (guardarEmpleado(nuevoEmpleado)) {
+      alert("✅ Registro exitoso. Ahora puedes iniciar sesión.");
+      window.location.href = "login.html";
+    }
+  });
+}
+
+// ======================= LOGIN =======================
+const loginForm = document.getElementById("loginForm");
+if (loginForm) {
+  loginForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const usuario = document.getElementById("usuario").value.trim();
+    const password = document.getElementById("password").value.trim(); // mismo ID que en HTML
+
+    const empleados = obtenerEmpleados();
+    const empleado = empleados.find(
+      (e) => e.usuario === usuario && e.password === password
+    );
+
+    if (empleado) {
+      guardarSesion(empleado);
+      alert(`✅ Bienvenido ${empleado.nombre} (${empleado.cargo})`);
+      window.location.href = "dashboard.html";
+    } else {
+      alert("❌ Usuario o contraseña incorrectos.");
+    }
+  });
+}
+
+// ======================= PORTAL EMPLEADOS =======================
+const empleadoSesion = obtenerSesion();
+if (empleadoSesion && document.getElementById("empleadoNombre")) {
+  document.getElementById("empleadoNombre").innerText = empleadoSesion.nombre;
+  if (document.getElementById("empleadoCargo"))
+    document.getElementById("empleadoCargo").innerText = empleadoSesion.cargo;
+  if (document.getElementById("empleadoDocumento"))
+    document.getElementById("empleadoDocumento").innerText =
+      empleadoSesion.documento;
+  if (document.getElementById("empleadoUsuario"))
+    document.getElementById("empleadoUsuario").innerText =
+      empleadoSesion.usuario;
+}
+
+// ======================= LOGOUT =======================
+const logoutBtn = document.getElementById("logoutBtn");
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", () => {
+    cerrarSesion();
+  });
+}

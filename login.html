@@ -116,7 +116,7 @@
       </form>
 
       <div class="register-link">
-        ¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a>
+        ¿No tienes cuenta? <a href="./registro.html">Regístrate aquí</a>
       </div>
     </div>
   </div>
@@ -126,31 +126,28 @@
     © 2025 Seguridad Privada Colombiana - Todos los derechos reservados
   </footer>
 
-  <!-- Script -->
+  <!-- Script de conexión -->
+  <script src="empleados.js"></script>
   <script>
-  const STORAGE_KEY = "empleadosSPC";
+    const STORAGE_KEY = "empleadosSPC";
 
-  document.getElementById("loginForm").addEventListener("submit", function(e) {
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
       e.preventDefault();
 
-      const usuario = document.getElementById("usuario").value;
-      const clave = document.getElementById("password").value;
+      const usuario = document.getElementById("usuario").value.trim();
+      const password = document.getElementById("password").value.trim();
 
       const empleados = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-
-      const empleado = empleados.find(emp => emp.usuario === usuario && emp.clave === clave);
+      const empleado = empleados.find(emp => emp.usuario === usuario && emp.password === password);
 
       if (empleado) {
-        alert("✅ Bienvenido " + empleado.nombre + " (" + empleado.rol + ")");
-        // Guardar sesión temporal
+        alert("✅ Bienvenido " + empleado.nombre + " (" + empleado.cargo + ")");
         localStorage.setItem("usuarioActivo", JSON.stringify(empleado));
-        // Redirigir al dashboard
         window.location.href = "dashboard.html";
       } else {
         alert("❌ Usuario o contraseña incorrectos.");
       }
-  });
+    });
   </script>
-
 </body>
 </html>
