@@ -1,66 +1,64 @@
+// Importación de librerías
 const express = require('express');
-const path = require('path');
-const mysql = require("mysql2");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const cors = require("cors");
+const bcrypt = require('bcryptjs');
 
 const app = express();
-const PORT = 4000;
+const PORT = 3000;
 
-app.use(cors());
-app.use(express.static('public'));
-app.use(express.urlencoded({ extended: true }));
+// Middleware para permitir que el servidor reciba datos en formato JSON
 app.use(express.json());
 
-// Conexión a MySQL
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",      // cámbialo por tu usuario
-  password: "",      // tu contraseña de MySQL
-  database: "seguridad"
-});
+// "Base de datos" temporal en memoria para almacenar usuarios
+const usuarios Registrados = [];
 
-// Ruta de login
-app.post("/login", (req, res) => {
-  const { usuario, password } = req.body;
+/**
+ * SERVICIO DE REGISTRO
+ * Recibe: usuario y contraseña
+ * Acción: Encripta la contraseña y guarda al usuario
+ */
+app.post('/registro', async (req, res) => {
+    const { usuario, contrasena } = req.body;
 
-  db.query("SELECT * FROM empleados WHERE usuario = ?", [usuario], (err, results) => {
-    if (err) return res.status(500).json({ error: "Error en el servidor" });
-    if (results.length === 0) return res.status(401).json({ error: "Usuario no encontrado" });
+    // Encriptar la contraseña antes de guardarla
+    const salt = await bcrypt.genSalt(10);
+    const contrasenaEncriptada = await bcrypt.hash(contrasena, salt);
 
-    const empleado = results[0];
-
-    // Verificar contraseña
-    bcrypt.compare(password, empleado.password, (err, isMatch) => {
-      if (!isMatch) return res.status(401).json({ error: "Contraseña incorrecta" });
-
-      // Generar token
-      const token = jwt.sign(
-        { id: empleado.id, rol: empleado.rol },
-        "clave_secreta_segura", // cámbiala por una fuerte
-        { expiresIn: "2h" }
-      );
-
-      res.json({ message: "Login exitoso", token, rol: empleado.rol });
+    // Guardar en nuestro arreglo
+    usuariosRegistrados.push({
+        usuario: usuario,
+        contrasena: contrasenaEncriptada
     });
-  });
+
+    res.status(201).send({ mensaje: "Usuario registrado exitosamente" });
 });
 
-// Servidor
-app.listen(4000, () => {
-  console.log("Servidor corriendo en http://localhost:4000");
+/**
+ * SERVICIO DE INICIO DE SESIÓN (LOGIN)
+ * Recibe: usuario y contraseña
+ * Acción: Verifica si el usuario existe y si la contraseña coincide
+ */
+app.post('/login', async (req, res) => {
+    const { usuario, contrasena } = req.body;
+
+    // Buscar el usuario en nuestra "base de datos"
+    const usuarioEncontrado = usuariosRegistrados.find(u => u.usuario === usuario);
+
+    if (!usuarioEncontrado) {
+        return res.status(401).send({ mensaje: "Error en la autenticación: Usuario no encontrado" });
+    }
+
+    // Comparar la contraseña ingresada con la encriptada
+    const esValida = await bcrypt.compare(contrasena, usuarioEncontrado.contrasena);
+
+    if (esValida) {
+        res.status(200).send({ mensaje: "Autenticación satisfactoria" });
+    } else {
+        res.status(401).send({ mensaje: "Error en la autenticación: Contraseña incorrecta" });
+    }
 });
 
-const jwt = require("jsonwebtoken");
-
-app.post("/verificar", (req, res) => {
-  const { token } = req.body;
-  if (!token) return res.status(401).json({ error: "No autorizado" });
-
-  jwt.verify(token, "clave_secreta_segura", (err, decoded) => {
-    if (err) return res.status(403).json({ error: "Token inválido" });
-
-    res.json({ valido: true, rol: decoded.rol });
-  });
+// Iniciar el servidor
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+    console.log("Evidencia GA7-220501096-AA5-EV01 lista para pruebas.");
 });

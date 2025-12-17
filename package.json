@@ -1,0 +1,27 @@
+{
+  "name": "seguridad-privada-colombiana",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jkflorez95-sena/seguridad-privada-colombiana---copia.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jkflorez95-sena/seguridad-privada-colombiana---copia/issues"
+  },
+  "homepage": "https://github.com/jkflorez95-sena/seguridad-privada-colombiana---copia#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "express": "^5.2.1",
+    "mysql2": "^3.15.3"
+  }
+}
