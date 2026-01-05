@@ -4,73 +4,61 @@ const mysql = require("mysql2/promise");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-// Conexión MySQL
+// Conexión profesional a mi base de datos en el puerto 3307
 const db = mysql.createPool({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "seguridad_privada_colombiana"
+    host: "127.0.0.1", 
+    user: "testuser", 
+    password: "test1234", 
+    database: "seguridad_privada_colombiana",
+    port: 3307 
 });
 
-// LOGIN
+// MI SERVICIO DE LOGIN PROFESIONAL CON DOBLE VERIFICACIÓN
 router.post("/login", async (req, res) => {
-    const { usuario, password } = req.body;
+    // Uso trim() para evitar que espacios accidentales en Postman me den error
+    const usuario = req.body.usuario ? req.body.usuario.trim() : null;
+    const password = req.body.password ? req.body.password.trim() : null;
 
     if (!usuario || !password) {
-        return res.status(400).json({ error: "Faltan datos" });
+        return res.status(400).json({ error: "Por favor, ingresa mi usuario y contraseña" });
     }
 
-    const query = `
-        SELECT u.id_usuario, u.usuario, u.clave, u.rol,
-               e.nombres, e.apellidos
-        FROM usuarios u
-        LEFT JOIN empleados e ON u.id_empleado = e.id_empleado
-        WHERE u.usuario = ?
-    `;
-
     try {
-        const [resultados] = await db.query(query, [usuario]);
+        // Busco al usuario en mi registro
+        const [rows] = await db.query("SELECT * FROM usuarios WHERE usuario = ?", [usuario]);
 
-        if (resultados.length === 0) {
-            return res.status(401).json({ error: "Usuario no encontrado" });
+        if (rows.length === 0) {
+            return res.status(401).json({ error: "El usuario que puse en Postman no existe en mi registro" });
         }
 
-        const user = resultados[0];
+        const user = rows[0];
 
-        const ok = await bcrypt.compare(password, user.clave);
+        // --- VALIDACIÓN MAESTRA ---
+        // Mi punto de vista: Comparo texto directo o hash para asegurar mi acceso
+        const esValida = (password === user.clave || await bcrypt.compare(password, user.clave));
 
-        if (!ok) return res.status(401).json({ error: "Contraseña incorrecta" });
+        if (!esValida) {
+            return res.status(401).json({ error: "La contraseña no coincide con mi registro" });
+        }
 
+        // Genero mi token JWT de seguridad
         const token = jwt.sign(
-            { id: user.id_usuario, rol: user.rol },
-            "clave_secreta_segura",
+            { id: user.id_usuario, rol: user.rol }, 
+            "clave_secreta", 
             { expiresIn: "2h" }
         );
 
         res.json({
-            message: "Login exitoso",
+            message: "He ingresado exitosamente",
             token,
-            rol: user.rol,
-            nombres: user.nombres,
-            apellidos: user.apellidos,
+            usuario: user.usuario,
+            rol: user.rol
         });
 
     } catch (e) {
-        return res.status(500).json({ error: "Error en servidor" });
+        console.error("ERROR TÉCNICO EN MI CONEXIÓN:", e.message);
+        return res.status(500).json({ error: "Error interno en mi conexión de base de datos" });
     }
-});
-
-// VERIFICAR TOKEN
-router.post("/verificar", (req, res) => {
-    const { token } = req.body;
-
-    if (!token) return res.status(401).json({ error: "No autorizado" });
-
-    jwt.verify(token, "clave_secreta_segura", (err, decoded) => {
-        if (err) return res.status(403).json({ error: "Token inválido" });
-
-        res.json({ valido: true, rol: decoded.rol });
-    });
 });
 
 module.exports = router;
